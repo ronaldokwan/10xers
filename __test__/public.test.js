@@ -14,7 +14,6 @@ beforeAll(async () => {
 describe("GET /", () => {
   test("get products", async () => {
     const response = await request(app).get("/");
-    console.log(response.body, "response.body");
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
     response.body.forEach((product) => {
