@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../index");
-const { User, Product } = require("../models");
+const { User, Product, Order } = require("../models");
 
 beforeAll(async () => {
   await Product.create({
@@ -206,6 +206,11 @@ describe("POST /login", () => {
 afterAll(async () => {
   await User.destroy({ truncate: true, cascade: true, restartIdentity: true });
   await Product.destroy({
+    truncate: true,
+    cascade: true,
+    restartIdentity: true,
+  });
+  await Order.destroy({
     truncate: true,
     cascade: true,
     restartIdentity: true,
