@@ -44,15 +44,15 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      role: {
+      admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         validate: {
           notNull: {
-            msg: "role should not be null",
+            msg: "admin should not be null",
           },
           notEmpty: {
-            msg: "role should not be empty",
+            msg: "admin should not be empty",
           },
         },
       },

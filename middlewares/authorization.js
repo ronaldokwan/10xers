@@ -1,10 +1,13 @@
-const { Note } = require("../models");
+const { User } = require("../models");
 
 async function authorization(req, res, next) {
   try {
-    const data = await Note.findByPk(req.params.id);
-    if (!data) throw { name: "Note not found" };
-    if (data.userId !== req.user.id) throw { name: "You're not authorized" };
+    const { id } = req.params;
+    const data = await User.findByPk(id);
+    if (!data) throw { name: "Not Found" };
+    if (req.user.admin === false && data.UserId !== req.user.id) {
+      throw { name: "You're not authorized" };
+    }
     next();
   } catch (error) {
     next(error);

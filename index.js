@@ -11,9 +11,20 @@ const authorization = require("./middlewares/authorization");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+app.get("/", Controller.home);
 app.post("/register", Controller.register);
+app.post("/login", Controller.login);
 
 app.use(authentication);
+
+app.get("/order", Controller.getOrder);
+app.post("/order", Controller.addOrder);
+app.put("/edit-order/:id", Controller.editOrder);
+app.delete("/delete-order/:id", Controller.deleteOrder);
+
+app.post("/add-product", authorization, Controller.addProduct);
+app.put("/edit-product/:id", authorization, Controller.editProduct);
+app.delete("/delete-product/:id", authorization, Controller.deleteProduct);
 
 app.use(errHandler);
 
