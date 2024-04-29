@@ -17,6 +17,7 @@ app.post("/login", Controller.login);
 
 app.use(authentication);
 
+app.get("/search", Controller.searchProduct);
 app.get("/order", Controller.getOrder);
 app.post("/order", Controller.addOrder);
 app.patch("/edit-order/:id", Controller.editOrder);

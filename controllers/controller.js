@@ -1,6 +1,7 @@
 const { User, Product, Order } = require("../models");
 const { comparePassword } = require("../helpers/bcrypt");
 const { signToken } = require("../helpers/jwt");
+const { Op } = require("sequelize");
 
 class Controller {
   static async home(req, res, next) {
@@ -57,6 +58,23 @@ class Controller {
       const access_token = signToken(payload);
 
       res.status(200).json({ access_token });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async searchProduct(req, res, next) {
+    try {
+      const data = await Product.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${req.query.search}%`,
+          },
+        },
+      });
+      if (data.length === 0) {
+        throw { name: "Product not found" };
+      }
+      res.status(200).json(data);
     } catch (error) {
       next(error);
     }
