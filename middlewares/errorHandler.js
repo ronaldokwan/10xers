@@ -27,8 +27,14 @@ async function errHandler(error, req, res, next) {
     case "You're not authorized":
       res.status(403).json({ message: "You're not authorized" });
       break;
-    case "Not Found":
-      res.status(404).json({ message: "Not Found" });
+    case "Id not found":
+      res.status(404).json({ message: "Id not found" });
+      break;
+    case "Order not found":
+      res.status(404).json({ message: "Order not found" });
+      break;
+    case "Product not found":
+      res.status(404).json({ message: "Product not found" });
       break;
     default:
       res.status(500).json({ message: "Internal server error" });

@@ -63,7 +63,12 @@ class Controller {
   }
   static async getOrder(req, res, next) {
     try {
-      const data = await Product.findAll();
+      const data = await Order.findAll({
+        where: { userId: req.user.id },
+        include: {
+          model: Product,
+        },
+      });
       res.status(200).json(data);
     } catch (error) {
       next(error);
@@ -71,74 +76,70 @@ class Controller {
   }
   static async addOrder(req, res, next) {
     try {
-      const { title, content, tag } = req.body;
+      const { productId } = req.body;
+
+      const dataProduct = await Product.findByPk(productId);
+      if (!dataProduct) throw { name: "Product not found" };
+
       const userId = req.user.id;
-      const data = await Product.create({
-        title,
-        content,
-        tag,
+      const data = await Order.create({
         userId,
+        productId,
       });
 
-      res.status(201).json({
-        id: data.id,
-        title: data.title,
-        content: data.content,
-        tag: data.tag,
-        userId: data.userId,
-      });
+      res.status(201).json({ data });
     } catch (error) {
       next(error);
     }
   }
   static async editOrder(req, res, next) {
     try {
-      const id = req.params.id;
-      const { title, content, tag } = req.body;
+      const orderId = req.params.id;
+      const { productId } = req.body;
 
-      const data = await Product.findByPk(id);
-      if (!data) throw { name: "Product not found" };
+      const orderData = await Order.findByPk(orderId);
+      if (!orderData) throw { name: "Order not found" };
 
-      data.title = title;
-      data.content = content;
-      data.tag = tag;
-      await data.save();
+      const productData = await Product.findByPk(productId);
+      if (!productData) throw { name: "Product not found" };
 
-      res.status(200).json({ message: "Product has been updated" });
+      orderData.productId = productId;
+      await orderData.save();
+
+      res.status(200).json({ message: "Order has been updated" });
     } catch (error) {
       next(error);
     }
   }
   static async deleteOrder(req, res, next) {
     try {
-      const id = req.params.id;
+      const orderId = req.params.id;
 
-      const data = await Product.findByPk(id);
-      if (!data) throw { name: "Product not found" };
+      const data = await Order.findByPk(orderId);
+      if (!data) throw { name: "Order not found" };
       await data.destroy();
 
-      res.status(200).json({ message: "Product has been deleted" });
+      res.status(200).json({ message: "Order has been deleted" });
     } catch (error) {
       next(error);
     }
   }
   static async addProduct(req, res, next) {
     try {
-      const { title, content, tag } = req.body;
-      const userId = req.user.id;
+      const { name, description, price, brand } = req.body;
       const data = await Product.create({
-        title,
-        content,
-        tag,
-        userId,
+        name,
+        description,
+        price,
+        brand,
       });
 
       res.status(201).json({
         id: data.id,
-        title: data.title,
-        content: data.content,
-        tag: data.tag,
-        userId: data.userId,
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        brand: data.brand,
       });
     } catch (error) {
       next(error);
@@ -146,15 +147,16 @@ class Controller {
   }
   static async editProduct(req, res, next) {
     try {
-      const id = req.params.id;
-      const { title, content, tag } = req.body;
+      const productId = req.params.id;
+      const { name, description, price, brand } = req.body;
 
-      const data = await Product.findByPk(id);
+      const data = await Product.findByPk(productId);
       if (!data) throw { name: "Product not found" };
 
-      data.title = title;
-      data.content = content;
-      data.tag = tag;
+      data.name = name;
+      data.description = description;
+      data.price = price;
+      data.brand = brand;
       await data.save();
 
       res.status(200).json({ message: "Product has been updated" });
@@ -164,13 +166,27 @@ class Controller {
   }
   static async deleteProduct(req, res, next) {
     try {
-      const id = req.params.id;
+      const productId = req.params.id;
 
-      const data = await Product.findByPk(id);
+      const data = await Product.findByPk(productId);
       if (!data) throw { name: "Product not found" };
       await data.destroy();
 
       res.status(200).json({ message: "Product has been deleted" });
+    } catch (error) {
+      next(error);
+    }
+  }
+  static async viewOrder(req, res, next) {
+    try {
+      const data = await Order.findAll({
+        attributes: ["id"],
+        include: {
+          model: Product,
+          attributes: ["id", "name", "description", "price", "brand"],
+        },
+      });
+      res.status(200).json(data);
     } catch (error) {
       next(error);
     }
