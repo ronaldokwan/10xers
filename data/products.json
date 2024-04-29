@@ -1,0 +1,32 @@
+[
+  {
+    "name": "iPhone 14 Pro Max",
+    "description": "Apple's flagship smartphone with a stunning Super Retina XDR display, powerful A16 Bionic chip, and an advanced camera system.",
+    "price": 1099.0,
+    "brand": "Apple"
+  },
+  {
+    "name": "Samsung Galaxy S23 Ultra",
+    "description": "Samsung's top-of-the-line smartphone with a bright and vibrant Dynamic AMOLED 2X display, powerful Snapdragon 8 Gen 2 processor, and versatile quad-camera setup.",
+    "price": 1199.99,
+    "brand": "Samsung"
+  },
+  {
+    "name": "Google Pixel 7 Pro",
+    "description": "Google's premium smartphone with a stunning 6.7-inch QHD+ display, Tensor G2 chip, and advanced camera capabilities powered by Google's computational photography.",
+    "price": 899.0,
+    "brand": "Google"
+  },
+  {
+    "name": "OnePlus 11 Pro",
+    "description": "OnePlus' flagship device with a stunning 6.7-inch QHD+ AMOLED display, powerful Snapdragon 8 Gen 2 processor, and a triple camera system with Hasselblad tuning.",
+    "price": 899.99,
+    "brand": "OnePlus"
+  },
+  {
+    "name": "Xiaomi 13 Pro",
+    "description": "Xiaomi's high-end smartphone with a 6.73-inch AMOLED display, Snapdragon 8 Gen 2 processor, and a triple camera setup co-engineered with Leica.",
+    "price": 999.99,
+    "brand": "Xiaomi"
+  }
+]

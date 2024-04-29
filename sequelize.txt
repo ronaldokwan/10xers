@@ -1,6 +1,6 @@
 sequelize generate Model and Seed
 
-npx sequelize-cli model:generate --name User --attributes email:string,password:string,provider:string
+npx sequelize-cli model:generate --name User --attributes email:string,password:string,admin:boolean
 npx sequelize-cli model:generate --name Product --attributes name:string,description:string,price:integer,brand:string
 npx sequelize-cli model:generate --name Order --attributes userId:integer,productId:integer
 
