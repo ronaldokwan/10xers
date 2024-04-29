@@ -26,7 +26,7 @@ cd 10xers
 
 ### Installation
 
-npm install
+- npm install
 
 Create a `.env` file in the server directory with the following content:
 
