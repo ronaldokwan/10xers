@@ -12,12 +12,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/", Controller.home);
+app.get("/search", Controller.searchProduct);
 app.post("/register", Controller.register);
 app.post("/login", Controller.login);
 
 app.use(authentication);
 
-app.get("/search", Controller.searchProduct);
 app.get("/order", Controller.getOrder);
 app.post("/order", Controller.addOrder);
 app.patch("/edit-order/:id", Controller.editOrder);
@@ -30,9 +30,5 @@ app.get("/view-order", authorization, Controller.viewOrder);
 
 app.use(errHandler);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-  console.log(`http://localhost:${port}`);
-});
-
+// app.listen -> bin/www
 module.exports = app;
