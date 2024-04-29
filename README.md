@@ -2,6 +2,7 @@
 
 - [API Documentation](API.md) (offline)
 - [API Documentation](https://documenter.getpostman.com/view/32679813/2sA3BuXUUW) (online)(more detailed)
+  ![Testing](test.png)
 
 ## Prerequisites
 
